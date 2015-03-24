@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Map Your Team - online</title> 
+    <link rel="shortcut icon" href="Label.ico">
+</head>
+<body style="background:#ff9999">
+
+    <script language="javascript" src="report.js"></script>
+    <script language="javascript">
+
+var d = new Date();
+var t = d.getTime();
+
+function main(){
+    res = 'Resiult:' + document.getElementById('text1').value;
+    document.getElementById('output').innerHTML = res;
+}
+    </script>
+
+    <br />
+    <div id="page" style="background:#ddffff; font-family:Arial;">
+        <br />
+        <h2 style="text-align:center">Visualize your team</h2>
+        <h3>Paste the 3-column data into the window and push the button.</h3>
+        <textarea id="text1" rows="10" maxlength="100" cols="100"></textarea>
+
+        <div style="text-align:center">
+            <input type='button' style="font-size:larger" value='   Create report    ' onclick="main()" />
+        </div>
+        <br />
+		<hr />
+		<div id="output" style="color:blue">
+			Thanks for using our service.
+		</div>
+
+		</div>
+    
+    <hr />
+    
+
+</body>
+</html>
