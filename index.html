@@ -45,16 +45,17 @@ function edges2nodes(edges_list){
 function edges2numbers(edges_list, nodes_list){
 
     edges_num_list = [];
+    edges_str = "Summary: " + String(nodes_list.length) + " nodes, "+ String(edges_list.length) + " connections";
     for (i=0; i<edges_list.length; i++){
         node0 = edges_list[i][0];
         node1 = edges_list[i][1];
         num0 = nodes_list.indexOf(node0);
         num1 = nodes_list.indexOf(node1);
         edges_num_list[i] = [String(num0+1), String(num1+1)];
+        edges_str = edges_str + ", " + String(num0+1) + "-" + String(num1+1);
      };
 
-    alert (edges_num_list[0]);
-    return edges_num_list;
+    return [edges_num_list, edges_str];
 }
 
 // remove empty elements from the end
@@ -70,7 +71,7 @@ function normalize_data(data_list){
     return data_list;
 }
 
-function main(){
+function parse_data(){
 
 	document.getElementById('page1').style.display ="none";
 	document.getElementById('page2').style.display ="";
@@ -90,11 +91,28 @@ function main(){
         };
 
     nodes_html = array2table(nodes_num, 2);
+    edges_num = edges2numbers(edges_list, nodes_list)[0];
+    edges_str = edges2numbers(edges_list, nodes_list)[1];
 
-
-
-    document.getElementById('output').innerHTML = array2table(edges2numbers(edges_list, nodes_list), 2) + array2table(edges_list, 2) + "<p><h3>List</h3>" + array2table(nodes_num, 2);
+    document.getElementById('output').innerHTML = array2table(edges_list, 2) + array2table(nodes_num, 2) + edges_str;
 }
+
+function try_again(){
+
+	document.getElementById('page1').style.display ="";
+	document.getElementById('page2').style.display ="none";
+	document.getElementById('page3').style.display ="none";
+    data = document.getElementById('text1').value = "";
+
+}
+
+function make_report(){
+
+	document.getElementById('page3').style.display ="";
+	document.getElementById('page2').style.display ="none";
+
+}
+
     </script>
 
     <br />
@@ -111,16 +129,32 @@ function main(){
             <textarea id="text1" rows="20" cols="100"></textarea>
             <br />
 
-            <input type='button' style="font-size:larger" value='   Visualize!    ' onclick="main()" />
+            <input type='button' style="font-size:larger" value='   Visualize!    ' onclick="parse_data()" />
         </div>
 
         <!--------------------------------------------------------------------------------------------->
-        <!-- Page 2: Visual Report                                                                      -->
+        <!-- Page 2: Data Verification                                                                      -->
         <!--------------------------------------------------------------------------------------------->
         <div id="page2" style="text-align:center; display: none;">
             <div id="output" style="color:blue; text-align:center;">
                 Thanks for using our service.
             </div>
+            <br />
+
+            <input type='button' style="font-size:larger" value='   YES, the data is correct!    ' onclick="make_report()" /> &nbsp;
+            <input type='button' style="font-size:larger" value='     NO, let me try again      ' onclick="try_again()" />
+        </div>
+
+        <!--------------------------------------------------------------------------------------------->
+        <!-- Page 3: Visual Report                                                                      -->
+        <!--------------------------------------------------------------------------------------------->
+        <div id="page3" style="text-align:center; display: none;">
+            <div id="output" style="color:blue; text-align:center;">
+                Thanks for using our service.
+            </div>
+            <br />
+            <input type='button' style="font-size:larger" value='     Try again      ' onclick="try_again()" />
+
         </div>
 
         <br />
